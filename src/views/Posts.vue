@@ -1,5 +1,11 @@
 <template>
-  <div class="about">
-    <h1>This is posts page</h1>
-  </div>
+  <h1>Posts</h1>
 </template>
+
+<script>
+
+export default {
+  name:"Posts",
+  props:["posts"]
+}
+</script>

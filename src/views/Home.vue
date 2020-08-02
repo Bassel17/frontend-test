@@ -98,7 +98,7 @@ export default {
   },
   async beforeCreate(){
     const result = await authRepo.checkUser();
-    if(result)router.push("posts");
+    if(result)router.push("Dashboard");
   }
 }
 </script>

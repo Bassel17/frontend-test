@@ -11,9 +11,9 @@ Vue.use(VueRouter)
     component: Home
   },
   {
-    path: '/posts',
-    name: 'Posts',
-    component: () => import('../views/Posts.vue')
+    path: '/Dashboard',
+    name: 'Dashboard',
+    component: () => import('../views/Dashboard.vue')
   }
 ]
 
