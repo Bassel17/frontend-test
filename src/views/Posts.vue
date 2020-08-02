@@ -4,7 +4,7 @@
     grid-list-lg
   >
     <v-layout row wrap>
-      <Post v-for="post in posts" v-bind:post="post" v-bind:key="post.id"/>
+      <Post v-for="post in posts" v-bind:post="post" v-bind:key="post.id" v-on:delete-post="deletePost"/>
     </v-layout>
   </v-container>
 </template>
@@ -17,6 +17,11 @@ export default {
   props:["posts"],
   components:{
     Post
+  },
+  methods:{
+    deletePost(id){
+      this.$emit('delete-post',id)
+    }
   }
 }
 </script>

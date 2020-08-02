@@ -5,7 +5,7 @@
                 <SideBar v-on:change-view="changeView"/>
             </v-col>
             <v-col cols=11>
-                <Posts v-if="isPosts" v-bind:posts="posts"/>
+                <Posts v-if="isPosts" v-bind:posts="posts" v-on:delete-post="deletePost"/>
                 <Profile v-else/>
             </v-col>
         </v-row>
@@ -30,12 +30,19 @@ export default {
   data(){
       return{
           isPosts:true,
-          posts:[]
+          posts:[
+              {
+                  id:0
+              }
+          ]
       }
   },
   methods:{
       changeView(isPosts){
           this.isPosts=isPosts;
+      },
+      deletePost(id){
+          this.posts=this.posts.filter((post)=>post.id !== id);
       }
   },
   async created(){
