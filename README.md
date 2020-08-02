@@ -7,7 +7,7 @@ use this command to install the necessary packages
 create a copy of .env.example into .env file
 ***
 ## configure .env file
-* VUE_APP_API= your api base url
+* VUE_APP_URL= your api base url
 ***
 `` yarn serve ``<br>
 write this command to start the app

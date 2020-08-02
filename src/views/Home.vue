@@ -54,6 +54,7 @@
 </template>
 
 <script>
+import router from '../router';
 import AuthRepo from '@/Repositories/AuthRepo';
 const authRepo = new AuthRepo();
 
@@ -75,7 +76,7 @@ export default {
   methods:{
     async signIn(){
       const result = await authRepo.login(this.user);
-      console.log(result);
+      if(result)router.push("posts");
       this.user = {
         name:'',
         email:'',
@@ -86,6 +87,7 @@ export default {
     async signUp(){
       const result = await authRepo.signup(this.user);
       console.log(result);
+      if(result)router.push("posts");
       this.user = {
         name:'',
         email:'',
@@ -93,6 +95,10 @@ export default {
         language:'EN'
       }
     }
+  },
+  async beforeCreate(){
+    const result = await authRepo.checkUser();
+    if(result)router.push("posts");
   }
 }
 </script>
