@@ -11,7 +11,7 @@
             </v-col>
             <v-col>
                 <v-card-actions>
-                    <v-btn color="green">Edit</v-btn>
+                    <v-btn color="green" @click="toggleEdit(true)">Edit</v-btn>
                     <v-btn color="red" @click="toggleConfirmDelete(true)">Delete</v-btn>
                 </v-card-actions>
             </v-col>
@@ -22,26 +22,41 @@
             v-on:hide-delete ="toggleConfirmDelete(false)"
             v-on:delete-post ="$emit('delete-post',post.id)"
         />
+        <EditPost
+            v-bind:dialog="isEditVisible" 
+            v-bind:post ="post"
+            v-on:hide-edit ="toggleEdit(false)"
+            v-on:edit-post ="editPost"
+        />
     </v-card>
 </template>
 
 <script>
-import ConfirmDelete from './ConfirmDelete'
+import ConfirmDelete from './ConfirmDelete';
+import EditPost from './EditPost';
 
 export default {
     name:"Post",
     props:['post'],
     data(){
         return{
-            isConfirmDeleteVisible:false
+            isConfirmDeleteVisible:false,
+            isEditVisible:false
         }
     },
     components:{
-        ConfirmDelete
+        ConfirmDelete,
+        EditPost
     },
     methods:{
         toggleConfirmDelete(bool){
             this.isConfirmDeleteVisible = bool;
+        },
+        toggleEdit(bool){
+            this.isEditVisible = bool;
+        },
+        editPost(post){
+            this.$emit('edit-post',post);
         }
     }
 }

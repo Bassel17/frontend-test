@@ -4,7 +4,13 @@
     grid-list-lg
   >
     <v-layout row wrap>
-      <Post v-for="post in posts" v-bind:post="post" v-bind:key="post.id" v-on:delete-post="deletePost"/>
+      <Post 
+        v-for="post in posts" 
+        v-bind:post="post" 
+        v-bind:key="post.id" 
+        v-on:delete-post="deletePost"
+        v-on:edit-post ="editPost"
+      />
     </v-layout>
   </v-container>
 </template>
@@ -21,6 +27,9 @@ export default {
   methods:{
     deletePost(id){
       this.$emit('delete-post',id)
+    },
+    editPost(post){
+      this.$emit('edit-post',post);
     }
   }
 }
