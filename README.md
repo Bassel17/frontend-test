@@ -1,24 +1,17 @@
-# frontend-test
+# steps to run this repo locally
 
-## Project setup
-```
-yarn install
-```
+`` yarn install ``<br>
+use this command to install the necessary packages
+***
+`` cp .env.example .env ``<br>
+create a copy of .env.example into .env file
+***
+## configure .env file
+* VUE_APP_API= your api base url
+***
+`` yarn serve ``<br>
+write this command to start the app
+***
+`` yarn build ``<br>
+Compiles and minifies for production
 
-### Compiles and hot-reloads for development
-```
-yarn serve
-```
-
-### Compiles and minifies for production
-```
-yarn build
-```
-
-### Lints and fixes files
-```
-yarn lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
