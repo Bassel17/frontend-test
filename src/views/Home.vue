@@ -76,7 +76,7 @@ export default {
   methods:{
     async signIn(){
       const result = await authRepo.login(this.user);
-      if(result)router.push("posts");
+      if(result)router.push("Dashboard");
       this.user = {
         name:'',
         email:'',
@@ -87,7 +87,7 @@ export default {
     async signUp(){
       const result = await authRepo.signup(this.user);
       console.log(result);
-      if(result)router.push("posts");
+      if(result)router.push("Dashboard");
       this.user = {
         name:'',
         email:'',
