@@ -20,6 +20,25 @@ class PostsRepo{
         }
     }
 
+    async addPost(postData){
+        try{
+            const response = await fetch(`${BaseUrl}/post/${localStorage.user_id}`,{
+                method: 'POST',
+                body:JSON.stringify(postData),
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${localStorage.token}`
+                }
+            });
+            const result = await response.json();
+            if(result.status === 201) return true;
+            return false;
+        }catch(error){
+            console.log(error);
+            return false;
+        }
+    }
+
     async editPost(postId,postData){
         try{
             const response = await fetch(`${BaseUrl}/post/${postId}`,{

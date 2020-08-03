@@ -10,6 +10,7 @@
                     v-bind:posts="posts" 
                     v-on:delete-post="deletePost"
                     v-on:edit-post ="editPost"
+                    v-on:add-post ="addPost"
                 />
                 <Profile v-else/>
             </v-col>
@@ -52,6 +53,10 @@ export default {
               }
               return element;
           });
+      },
+      addPost(post){
+          this.posts = [...this.posts,{...post,id:0}];
+          window.location.reload();
       }
   },
   async created(){

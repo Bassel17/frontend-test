@@ -11,8 +11,8 @@
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="blue darken-1" text @click="$emit('hide-edit')">Close</v-btn>
-          <v-btn color="green darken-1" text @click="editPost">Save</v-btn>
+          <v-btn color="blue darken-1" text @click="$emit('hide-add')">Close</v-btn>
+          <v-btn color="green darken-1" text @click="addPost">Save</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -24,28 +24,27 @@ import PostsRepo from '@/Repositories/PostsRepo';
 const postsRepo = new PostsRepo();
 
 export default {
-    name:"EditPost",
-    props:['post','dialog'],
+    name:"AddPost",
+    props:['dialog'],
     data(){
         return{
-            title:this.post.title,
-            description:this.post.description
+            title:"",
+            description:""
         }
     },
     methods:{
-        async editPost(){
-            const result = await postsRepo.editPost(this.post.id,{
+        async addPost(){
+            const result = await postsRepo.addPost({
                 title:this.title,
                 description:this.description
             });
             if(result){
                 const post = {
-                    id:this.post.id,
                     title:this.title,
                     description:this.description
                 }
-                this.$emit('hide-edit');
-                this.$emit('edit-post',post);
+                this.$emit('hide-add');
+                this.$emit('add-post',post);
             }
         }
     }
