@@ -26,14 +26,20 @@
                         </v-col>
                         <v-col align-self="end">
                             <v-card-actions>
-                                <v-btn color="green" style="margin:1em;">edit</v-btn>
-                                <v-btn color="red" style="margin:1em;">terminate</v-btn>
+                                <v-btn @click="toggleEditProfile(true)" color="green" style="margin:1em;">edit</v-btn>
+                                <v-btn @click="terminateProfile" color="red" style="margin:1em;">terminate</v-btn>
                             </v-card-actions>
                         </v-col>
                     </v-row>
                 </v-card-text>
             </v-card>
         </v-layout>
+        <EditProfile
+            v-bind:user="user"
+            v-bind:dialog="isEditProfileShown"
+            v-on:hide-edit="toggleEditProfile(false)"
+            v-on:update-profile="editProfile"
+        />
     </v-container>
 </template>
 
@@ -41,16 +47,36 @@
 import ProfileRepo from '../Repositories/ProfileRepo';
 const profileRepo = new ProfileRepo();
 import {returnLanguageName} from '../helpers/helpers';
+import  EditProfile from '../components/EditProfile';
+import router from '../router';
 
 export default {
   name:"Profile",
+  components:{
+      EditProfile
+  },
   data(){
       return{
-        user:{
-            name:"",
-            email:"",
-            language:""
-        }
+        user:null,
+        isEditProfileShown:false
+      }
+  },
+  methods:{
+      toggleEditProfile(bool){
+          this.isEditProfileShown=bool;
+      },
+      async editProfile(data){
+          const result = await profileRepo.updateUserProfile(data);
+          if(result){
+              this.user=data;
+              this.toggleEditProfile(false);
+          }
+      },
+      async terminateProfile(){
+          const result = await profileRepo.deleteUserProfile();
+          if(result){
+              router.push('/');
+          }
       }
   },
   async created(){
