@@ -25,7 +25,7 @@
             v-for="item in items"
             :key="item.title"
             link
-            @click="navigate(item.isPosts)"
+            @click="navigate(item)"
           >
             <v-list-item-icon>
               <v-icon>{{ item.icon }}</v-icon>
@@ -40,20 +40,32 @@
 </template>
 
 <script>
+import router from '../router';
+import AuthRepo from '../Repositories/AuthRepo';
+const authRepo = new AuthRepo();
+
 export default {
   name:"SideBar",
   data(){
     return{
       items:[
         { title: 'My Posts', icon: 'mdi-view-dashboard' , isPosts:true},
-        { title: 'My Profile', icon: 'mdi-image' ,isPosts:false}
+        { title: 'My Profile', icon: 'mdi-image' ,isPosts:false},
+        { title: 'logout', icon: 'mdi-exit-to-app', logout:true}
       ],
       miniVariant:true
     }
   },
   methods:{
-      navigate(isPosts){
-          this.$emit('change-view',isPosts);
+      async navigate(item){
+          if(item.logout){
+              const result = await authRepo.logout();
+              if(result){
+                  router.push('/');
+              }
+          }else{
+              this.$emit('change-view',item.isPosts);
+          }
       }
   }
 }

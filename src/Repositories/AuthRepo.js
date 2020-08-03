@@ -65,6 +65,27 @@ class AuthRepo{
         return false;
     }
 
+    async logout(){
+        try{
+            const response = await fetch(`${BaseUrl}/logout`,{
+                method: 'POST',
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${localStorage.token}`
+                }
+            });
+            const result = await response.json();
+            if(result.status === 200) {
+                localStorage.clear();
+                return true;
+            }
+            return false;
+        }catch(error){
+            console.log(error);
+            return false;
+        }
+    }
+
 }
 
 export default AuthRepo;
