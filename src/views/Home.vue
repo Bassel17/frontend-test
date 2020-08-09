@@ -86,7 +86,6 @@ export default {
     },
     async signUp(){
       const result = await authRepo.signup(this.user);
-      console.log(result);
       if(result)router.push("Dashboard");
       this.user = {
         name:'',

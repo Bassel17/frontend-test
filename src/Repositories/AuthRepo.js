@@ -18,8 +18,9 @@ class AuthRepo{
             if(result.status !== 401){
                 localStorage.token = result.access_token;
                 localStorage.user_id = result.user_id ;
+                return true;
             }
-            return true;
+            return false
         }catch(error){
             console.log("Error ======> ",error);
             return false;
@@ -40,8 +41,9 @@ class AuthRepo{
             if(result.user_id){
                 localStorage.token = result.access_token;
                 localStorage.user_id = result.user_id ;
+                return true;
             }
-            return true;
+            return false;
         }catch(error){
             console.log("Error ======> ",error);
             return false;
