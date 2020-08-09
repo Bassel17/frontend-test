@@ -15,8 +15,10 @@ class AuthRepo{
                 }
             });
             const result = await response.json();
-            localStorage.token = result.access_token;
-            localStorage.user_id = result.user_id ;
+            if(result.status !== 401){
+                localStorage.token = result.access_token;
+                localStorage.user_id = result.user_id ;
+            }
             return true;
         }catch(error){
             console.log("Error ======> ",error);
@@ -35,8 +37,10 @@ class AuthRepo{
                 }
             });
             const result = await response.json();
-            localStorage.token = result.access_token;
-            localStorage.user_id = result.user_id ;
+            if(result.user_id){
+                localStorage.token = result.access_token;
+                localStorage.user_id = result.user_id ;
+            }
             return true;
         }catch(error){
             console.log("Error ======> ",error);
