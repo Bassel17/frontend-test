@@ -25,7 +25,7 @@ class AuthRepo{
     }
 
     async signup(userInfo){
-        userInfo.language_id = returnLanguageId(userInfo.language_id);
+        userInfo.language_id = returnLanguageId(userInfo.language);
         try{
             const response = await fetch(`${BaseUrl}/register`,{
                 method: 'POST',
